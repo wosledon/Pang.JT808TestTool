@@ -1,0 +1,224 @@
+﻿<Window x:Class="Pang.JT808TestTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pang.JT808TestTool"
+        mc:Ignorable="d"
+        Title="[Pang] JT T808-(2011~2019)终端配置/调试工具" Closing="MainWindow_OnClosing" Height="900" Width="1380" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid Margin="5">
+        <StackPanel Orientation="Horizontal">
+            <GroupBox Header="设备列表">
+                <StackPanel Width="160">
+                    <StackPanel Margin="0,5,0,5" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <CheckBox x:Name="EquipmentCbxChooseAll" Click="EquipmentCbxChooseAll_OnChecked" Margin="0,0,0,0" VerticalAlignment="Center">全选</CheckBox>
+                        <CheckBox x:Name="EquipmentCbxPaging" IsEnabled="False" Margin="10,0,0,0" VerticalAlignment="Center" IsChecked="True">分页</CheckBox>
+                        <Button x:Name="EquipmentBtnRefresh" Click="EquipmentBtnRefresh_OnClick" Margin="10,0,0,0">刷新</Button>
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,5" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox x:Name="EquipmentTbxSelect" MinWidth="120" Padding="3,0,0,0" VerticalAlignment="Center"></TextBox>
+                        <Button x:Name="EquipmentBtnSelect" Click="EquipmentBtnSelect_OnClick" Margin="10,0,0,0">查询</Button>
+                    </StackPanel>
+                    <Border BorderBrush="LightGray" BorderThickness="0.5">
+                        <StackPanel x:Name="EquipmentSpList" MaxHeight="730" MinHeight="200" Height="auto">
+
+                        </StackPanel>
+                    </Border>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <Button x:Name="EquipmentBtnPrevPage" Click="EquipmentBtnPrevPage_OnClick">上一页</Button>
+                        <Label>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="EquipmentTbkCurrentPage">1</TextBlock>
+                                <TextBlock>/</TextBlock>
+                                <TextBlock x:Name="EquipmentTbkSumPages">10</TextBlock>
+                                <TextBlock>页</TextBlock>
+                            </StackPanel>
+                        </Label>
+                        <Button x:Name="EquipmentBtnNextPage" Click="EquipmentBtnNextPage_OnClick">下一页</Button>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <StackPanel>
+                <GroupBox Header="当前选中设备" Margin="0,0,0,10" BorderBrush="Red" BorderThickness="3">
+                    <Label x:Name="LbCurrentEquipment" HorizontalContentAlignment="Center">暂时没有监听设备</Label>
+                </GroupBox>
+                <GroupBox Header="终端参数查询(不支持批量)">
+                    <StackPanel Width="180">
+                        <!--<TextBox x:Name="TbPhoneNo">14148264663</TextBox>
+                    <Button Margin="5" x:Name="BtnSelectTerPara" Click="BtnSelectTerPara_OnClick">查询终端所有参数</Button>
+                    <Button Margin="5" x:Name="BtnSelectMileage" Click="BtnSelectMileage_OnClick">查询里程</Button>
+                    <Button Margin="5" x:Name="BtnSelectMaxSpeed" Click="BtnSelectMaxSpeed_OnClick">查询最高时速0x8106</Button>
+                    <Button Margin="5" x:Name="BtnSelectMaxSpeed0x8104" Click="BtnSelectMaxSpeed0x8104_OnClick">查询最高时速0x8104_0x8106</Button>
+                    <TextBlock TextWrapping="Wrap" x:Name="TbkShow" Height="auto"></TextBlock>-->
+                        <GroupBox Header="所有参数查询 0x8104">
+                            <Button x:Name="ParaSelectBtnAll" Click="ParaSelectBtnAll_OnClick" Margin="5">查询所有参数</Button>
+                        </GroupBox>
+                        <GroupBox Header="部分参数查询 0x8106">
+                            <StackPanel Margin="0,5,0,0" HorizontalAlignment="Center">
+                                <CheckBox x:Name="ParaSelectCbxChooseAll" Click="ParaSelectCbxChooseAll_OnClick" Margin="0,0,0,3">全选</CheckBox>
+                                <Separator Margin="15,0,15,5"/>
+                                <StackPanel x:Name="ParaSelectSpCbxBox" CheckBox.Click="ParaSelectSpCbxBox_OnClick">
+                                    <CheckBox x:Name="ParaSelectCbx0X0001">心跳发送间隔(s)</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0010">主服务器APN</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0013">主服务器地址</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0017">备份服务器地址</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0018">服务器TCP端口</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0020">位置汇报策略</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0027">休眠时间间隔(s)</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0029">省缺时间间隔(s)</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0030">拐点补传角度&lt;180</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0055">最高速度</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0056">超速持续时间</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0080">车辆里程读表数(1/10km)</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0081">车辆省域ID</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0082">车辆市域ID</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0083">机动车牌号</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X0084">车辆颜色</CheckBox>
+                                    <CheckBox x:Name="ParaSelectCbx0X1018">ACC关联(MK01)</CheckBox>
+                                </StackPanel>
+                                <Button x:Name="ParaSelectBtnPart" Click="ParaSelectBtnPart_OnClick" Margin="5">查询</Button>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="位置参数查询">
+                    
+                </GroupBox>
+            </StackPanel>
+            <GroupBox Header="设置终端参数">
+                <StackPanel Width="180">
+                    <!--<StackPanel>
+                        <Label BorderBrush="LightGray" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock>当前选中设备:</TextBlock>
+                                <TextBlock x:Name="ParaSetTbkCurrentEquipment" Foreground="OrangeRed" Margin="30,5,0,0">12345678910</TextBlock>
+                            </StackPanel>
+                        </Label>
+                    </StackPanel>-->
+                    <GroupBox Header="可选参数设置 0x8103">
+                        <StackPanel Margin="0,5,0,0" HorizontalAlignment="Center">
+                            <CheckBox x:Name="ParaSetCbxChooseAll" Click="ParaSetCbxChooseAll_OnClick" Margin="0,0,0,3">全选</CheckBox>
+                            <Separator Margin="15,0,15,5"/>
+                            <StackPanel x:Name="ParaSetSpCbxBox" CheckBox.Click="ParaSetSpCbxBox_OnClick">
+                                <CheckBox x:Name="ParaSetCbx0X0001">心跳发送间隔(s)</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0001" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0010">主服务器APN</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0010" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0013">主服务器地址</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0013" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0017">备份服务器地址</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0017" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0018">服务器TCP端口</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0018" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0020">位置汇报策略</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0020" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0027">休眠时间间隔(s)</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0027" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0029">省缺时间间隔(s)</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0029" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0030">拐点补传角度&lt;180</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0030" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0055">最高速度</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0055" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0056">超速持续时间</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0056" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0080">车辆里程读表数(1/10km)</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0080" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0081">车辆省域ID</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0081" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0082">车辆市域ID</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0082" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0083">机动车牌号</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0083" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X0084">车辆颜色</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X0084" Margin="15,0,5,5"></TextBox>
+                                <CheckBox x:Name="ParaSetCbx0X1018" IsEnabled="False">ACC关联</CheckBox>
+                                <TextBox x:Name="ParaSetTbx0X1018" IsEnabled="False" Margin="15,0,5,5"></TextBox>
+                            </StackPanel>
+                            <Button x:Name="ParaSetBtnSet" Click="ParaSetBtnSet_OnClick" Margin="5">设置</Button>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="控制">
+                <StackPanel Width="180" Margin="10">
+                    <!--<Button Margin="5" x:Name="BtnDisconnectOil" Click="BtnDisconnectOil_OnClick">断开/恢复油电</Button>
+                    <Button Margin="5" IsEnabled="False">超速设置</Button>
+                    <Button Margin="5" x:Name="BtnSetReceiveTime" Click="BtnSetReceiveTime_OnClick">设置回传时间</Button>
+                    <Button Margin="5" IsEnabled="False">重启指令</Button>
+                    <Button Margin="5" x:Name="BtnApnParaSet">APN参数设置</Button>
+                    <Button Margin="5" IsEnabled="False">时区设置</Button>
+                    <Button Margin="5" x:Name="BtnServerParaSet" Click="BtnServerParaSet_OnClick">服务器参数设置</Button>
+                    <Button Margin="5" IsEnabled="False">报警处理</Button>
+                    <Button Margin="5" IsEnabled="False">解除警报</Button>
+                    <TextBox Margin="5,5,5,0" x:Name="TbMileage">0</TextBox>
+                    <Button Margin="5" x:Name="BtnResetMileage" Click="BtnResetMileage_OnClick">里程重置</Button>
+                    <TextBox x:Name="TbSpeed" Margin="5,10,5,0">0</TextBox>
+                    <Button Margin="5" x:Name="BtnSetMaxSpeed" Click="BtnSetMaxSpeed_OnClick">设置最高时速</Button>-->
+                    <GroupBox Header="内置命令">
+                        <StackPanel x:Name="EquipmentControlSpOilEle" Button.Click="EquipmentControlSpOilEle_OnClick"  Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
+                            <Button x:Name="EquipmentOpenSpOilEle" Padding="5" Background="Transparent" BorderBrush="LightGray" BorderThickness="0.5">打开油电</Button>
+                            <Button x:Name="EquipmentCloseSpOilEle" Padding="5" Background="Transparent" BorderBrush="LightGray" BorderThickness="0.5">关闭油电</Button>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="自定义命令">
+
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+            <StackPanel Width="575">
+                <GroupBox Header="服务器配置">
+                    <StackPanel Margin="5" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Label VerticalAlignment="Center">Kafka服务器:</Label>
+                        <TextBox x:Name="KafkaServerTbxConfig" MinWidth="150" Padding="3,0,0,0" VerticalAlignment="Center">127.0.0.1:9092</TextBox>
+                        <Border x:Name="KafkaServerBdrConnectStatus" Margin="40,5,5,5" Background="OrangeRed" Width="20"></Border>
+                        <Button x:Name="KafkaServerBtnConnectTest" Click="KafkaServerBtnConnectTest_OnClick" Margin="5" Width="80">连接</Button>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="数据显示区域">
+                    <StackPanel Height="765">
+                        <GroupBox Header="数据配置" Margin="5">
+                            <StackPanel>
+                                <WrapPanel Orientation="Horizontal" Margin="00,10,0,5">
+                                    <CheckBox x:Name="DataDisplayCbxShowLocationResponse" Margin="10,0,0,0">显示位置信息</CheckBox>
+                                    <CheckBox x:Name="DataDisplayCbxShowTerminalGeneralResponse" Margin="10,0,0,0">显示终端通用应答</CheckBox>
+                                    <CheckBox x:Name="DataDisplayCbxShowTerminalParaSelectResponse" Margin="10,0,0,0">显示终端参数查询应答</CheckBox>
+                                    <CheckBox x:Name="DataDisplayCbxShowTerminalLocationSelectResponse" Margin="10,0,0,0">显示终端位置查询应答</CheckBox>
+                                    <CheckBox x:Name="DataDisplayCbxShowTerminalOthersResponse" Margin="10,0,0,0">其它</CheckBox>
+                                </WrapPanel>
+                                <StackPanel Orientation="Horizontal" Margin="5,10,0,5">
+                                    <Label>显示消息数: </Label>
+                                    <TextBox x:Name="DataDisplayTbxShowMessageCount" Height="20" Width="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">5</TextBox>
+                                    <Label>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock>n&lt;</TextBlock>
+                                            <TextBlock x:Name="DataDisplayTbkShowMaxMessagesCount">50</TextBlock>
+                                        </StackPanel>
+                                    </Label>
+                                    <CheckBox x:Name="DataDisplayIsSerialization" Margin="10,0,0,0" VerticalAlignment="Center" IsChecked="True">序列化元数据</CheckBox>
+                                    <Button x:Name="DataDisplayPauseSpShowMessages" Click="DataDisplayPauseSpShowMessages_OnClick" Margin="30,0,0,0" Width="80">暂停</Button>
+                                    <Button x:Name="DataDisplayClearSpShowMessages" Click="DataDisplayClearSpShowMessages_OnClick" Margin="30,0,0,0" Width="80">清空</Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                        <Border Margin="5" BorderBrush="LightGray" BorderThickness="0.5" MinHeight="300" Height="635">
+                            <ScrollViewer x:Name="DataDisplaySvrSp">
+                                <StackPanel x:Name="DataDisplaySpShowMessages" HorizontalAlignment="Center">
+
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Border>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+            <!--<StackPanel Width="700" Margin="10" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="BtnReceiveConsumer" Click="BtnReceiveConsumer_OnClick" Width="200">启动</Button>
+                        <Label>接收到:</Label>
+                        <Label x:Name="TbkReceiveCount" MinWidth="60" Width="auto">0</Label>
+                    </StackPanel>
+                    <TextBox x:Name="TbShowMsg" TextWrapping="Wrap" Height="370" VerticalScrollBarVisibility="Auto"></TextBox>
+                </StackPanel>-->
+        </StackPanel>
+    </Grid>
+</Window>

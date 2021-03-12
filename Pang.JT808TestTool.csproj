@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Confluent.Kafka" Version="1.5.3" />
+    <PackageReference Include="JT808" Version="2.3.6" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PMPlatform.KafkaPubSubs">
+      <HintPath>PMPlatform.KafkaPubSubs.dll</HintPath>
+    </Reference>
+    <Reference Include="PMPlatform.RelayProtocols">
+      <HintPath>PMPlatform.RelayProtocols.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

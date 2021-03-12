@@ -1,0 +1,7 @@
+/.vs
+/bin
+/obj
+/SuperSocket.Channel.dll
+/SuperSocket.Primitives.dll
+/SuperSocket.ProtoBase.dll
+/System.IO.Pipelines.dll
