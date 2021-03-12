@@ -10,7 +10,7 @@
 2. 工具接入的是Kafka (后面会直接集成Socket Server和Socket Client)
       (1) 需要主题`jt808`用于传递设备发来的消息
       (2) 需要主题`sessionOffline`由网关通知模拟器设备下线了(这个不想用的话也行, 直接重启)
-3. 上行命令格式: 20Byte+源数据, 20Byte是暂时保留的, 可以直接医用项目里的`PMPlatform.RelayProtocols`来格式化上行数据和下行数据.
+3. 上行命令格式: 20Byte+源数据, 20Byte是暂时保留的, 可以直接引用项目里的`PMPlatform.RelayProtocols`来格式化上行数据和下行数据.
 
 
 ### 实现的功能
