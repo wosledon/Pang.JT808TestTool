@@ -1,4 +1,4 @@
-# JTT808协议终端测试工具
+# JTT808协议终端配置/测试工具
 
 基于DotNet 5的WPF程序
 
@@ -19,7 +19,9 @@
 3. 接收设备消息并提供格式化
 4. 设置设备参数
 5. 过滤设备消息
-6. 一些固定的消息也可以在`App.config`中修改
+6. 一些固定的配置也可以在`App.config`中修改
+
+![image](https://github.com/DonPangPang/Pang.JT808TestTool/blob/master/tool.png)
 
 如果觉得麻烦可以自行下载修改, 或者等我改...🥰
 
