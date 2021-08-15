@@ -11,6 +11,8 @@
     <PackageReference Include="JT808" Version="2.3.6" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="SuperSocket" Version="2.0.0-beta.10.362" />
+    <PackageReference Include="SuperSocket.Server" Version="2.0.0-beta.10.362" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +22,11 @@
     <Reference Include="PMPlatform.RelayProtocols">
       <HintPath>PMPlatform.RelayProtocols.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ServerService\" />
+    <Folder Include="Pipeline\" />
   </ItemGroup>
 
 </Project>
